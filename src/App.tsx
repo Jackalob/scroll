@@ -1,5 +1,11 @@
+import AppProvider from './providers';
+
 function App() {
-  return <div className="App" />;
+  return (
+    <AppProvider>
+      <div>Home</div>
+    </AppProvider>
+  );
 }
 
 export default App;
