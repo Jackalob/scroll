@@ -20,6 +20,9 @@ function usePhotos() {
   return useInfiniteQuery<Photo[]>({
     queryKey: ['photos'],
     queryFn: fetchPhotos,
+    getNextPageParam: (lastPage, allPages) => {
+      return allPages.length + 1;
+    },
   });
 }
 
