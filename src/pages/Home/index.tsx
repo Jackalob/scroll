@@ -1,5 +1,16 @@
+import { usePhotos } from '../../api/photo';
+
 function Home() {
-  return <div>Home</div>;
+  const { data } = usePhotos();
+  const pages = data?.pages;
+
+  return (
+    <div>
+      {pages?.map((pageData) =>
+        pageData.map((photo) => <div key={photo.id}>{photo.author}</div>)
+      )}
+    </div>
+  );
 }
 
 export default Home;
