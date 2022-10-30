@@ -6,7 +6,7 @@ const instance: AxiosInstance = axios.create({ baseURL });
 
 const onError = (error: Error | AxiosError) => {
   // handle error globally
-  console.log(error);
+  return Promise.reject(error.message);
 };
 
 async function client(endpoint: string, options?: AxiosRequestConfig) {
@@ -30,4 +30,5 @@ async function client(endpoint: string, options?: AxiosRequestConfig) {
   };
   return instance(config).catch(onError);
 }
+
 export default client;
