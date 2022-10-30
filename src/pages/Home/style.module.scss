@@ -1,0 +1,13 @@
+.gap:not(:last-child) {
+  margin-bottom: 2rem;
+}
+
+.img {
+  width: 60%;
+  margin: 0 auto;
+  object-fit: contain;
+}
+
+.author {
+  margin-top: 1.5rem;
+}
