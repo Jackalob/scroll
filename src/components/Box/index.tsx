@@ -3,12 +3,12 @@ import STYLE from './style.module.scss';
 
 function Box({
   children,
-  className,
+  className = '',
 }: React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,
   HTMLDivElement
 >) {
-  return <div className={`${className} ${STYLE.wrapper}`}>{children}</div>;
+  return <div className={`${STYLE.wrapper} ${className}`}>{children}</div>;
 }
 
 export default Box;

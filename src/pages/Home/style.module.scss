@@ -1,13 +1,44 @@
-.gap:not(:last-child) {
-  margin-bottom: 2rem;
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  text-align: center;
+  margin: 2rem 0;
+  line-height: 40px;
+}
+
+.wrapper {
+  height: 100%;
+  padding-bottom: 2rem;
 }
 
 .img {
   width: 60%;
+  height: 60%;
   margin: 0 auto;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .author {
-  margin-top: 1.5rem;
+  margin-top: 2rem;
+  font-size: 1.25rem;
+}
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
