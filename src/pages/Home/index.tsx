@@ -1,18 +1,10 @@
+import { useCallback } from 'react';
 import { VariableSizeList as List } from 'react-window';
 import InfiniteLoader from 'react-window-infinite-loader';
 
-import type { Photo } from '../../types';
 import { usePhotos } from '../../api/photo';
-import Box from '../../components/Box';
-import { IconSpinner } from '../../assets/icons';
 import STYLE from './style.module.scss';
-
-type ListItemProps = {
-  isLoaded: boolean;
-  style: React.CSSProperties;
-  photo: Photo;
-  index: number;
-};
+import ListItem from './ListItem';
 
 function Home() {
   const { data, hasNextPage, isFetchingNextPage, fetchNextPage } = usePhotos();
@@ -23,10 +15,11 @@ function Home() {
     ? () => {}
     : (fetchNextPage as () => void);
   const isItemLoaded = (index: number) => !hasNextPage || index < photos.length;
-  const getItemSize = (index: number) => {
+
+  const getItemSize = useCallback((index: number) => {
     if (index === 0) return 108; // h1 tag height
     return window.innerHeight * 0.8;
-  };
+  }, []);
 
   return (
     <div className={STYLE.container}>
@@ -49,48 +42,21 @@ function Home() {
           >
             {({ index, style }) => {
               const photo = photos[index];
+              // style is different in every render that makes memo to be not fuctioning
+              // put style out of ListItem
               return (
-                <ListItem
-                  isLoaded={!isItemLoaded(index)}
-                  style={style}
-                  photo={photo}
-                  index={index}
-                />
+                <div style={style}>
+                  <ListItem
+                    isLoaded={!isItemLoaded(index)}
+                    photo={photo}
+                    index={index}
+                  />
+                </div>
               );
             }}
           </List>
         )}
       </InfiniteLoader>
-    </div>
-  );
-}
-
-function ListItem({ isLoaded, style, photo, index }: ListItemProps) {
-  if (index === 0) {
-    return <h1 className={STYLE.title}>Infinite Scroll</h1>;
-  }
-  if (isLoaded) {
-    return (
-      <div style={style}>
-        <Box>
-          <IconSpinner className={STYLE.spinner} />
-        </Box>
-      </div>
-    );
-  }
-  return (
-    <div style={style}>
-      <div className={STYLE.wrapper}>
-        <Box>
-          <img
-            className={STYLE.img}
-            src={photo.download_url}
-            alt=""
-            loading="lazy"
-          />
-          <span className={STYLE.author}>Author: {photo.author}</span>
-        </Box>
-      </div>
     </div>
   );
 }

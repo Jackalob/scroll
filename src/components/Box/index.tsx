@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { memo } from 'react';
+
 import STYLE from './style.module.scss';
 
 function Box({
@@ -11,4 +12,4 @@ function Box({
   return <div className={`${STYLE.wrapper} ${className}`}>{children}</div>;
 }
 
-export default Box;
+export default memo(Box);
