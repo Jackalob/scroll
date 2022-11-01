@@ -16,11 +16,16 @@
   padding-bottom: 2rem;
 }
 
+.list {
+  overflow: auto;
+}
+
 .img {
   width: 60%;
   height: 60%;
   margin: 0 auto;
   object-fit: cover;
+  background-color: #eee;
 }
 
 .author {

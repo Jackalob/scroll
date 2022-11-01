@@ -1,4 +1,4 @@
-import { FixedSizeList as List } from 'react-window';
+import { VariableSizeList as List } from 'react-window';
 import InfiniteLoader from 'react-window-infinite-loader';
 
 import { usePhotos } from '../../api/photo';
@@ -11,9 +11,13 @@ type ListItemProps = {
   isLoaded: boolean;
   style: React.CSSProperties;
   photo: Photo;
+  index: number;
 };
 
-function generateListItem({ isLoaded, style, photo }: ListItemProps) {
+function generateListItem({ isLoaded, style, photo, index }: ListItemProps) {
+  if (index === 0) {
+    return <h1 className={STYLE.title}>Infinite Scroll</h1>;
+  }
   if (isLoaded) {
     return (
       <div style={style}>
@@ -49,23 +53,29 @@ function Home() {
     ? () => {}
     : (fetchNextPage as () => void);
   const isItemLoaded = (index: number) => !hasNextPage || index < photos.length;
+  const getItemSize = (index: number) => {
+    if (index === 0) return 108; // h1 tag height
+    return window.innerHeight * 0.8;
+  };
 
   return (
     <div className={STYLE.container}>
-      <h1 className={STYLE.title}>Infinite Scroll</h1>
       <InfiniteLoader
         isItemLoaded={isItemLoaded}
         itemCount={itemCount}
         loadMoreItems={loadMoreItems}
+        threshold={0}
       >
         {({ onItemsRendered, ref }) => (
           <List
-            itemCount={itemCount}
-            itemSize={window.innerHeight * 0.8}
-            onItemsRendered={onItemsRendered}
+            className={STYLE.list}
             ref={ref}
+            itemCount={itemCount}
+            estimatedItemSize={window.innerHeight * 0.8}
+            itemSize={getItemSize}
+            onItemsRendered={onItemsRendered}
+            height={window.innerHeight}
             width="100%"
-            height={window.innerHeight - 104}
           >
             {({ index, style }) => {
               const photo = photos[index];
@@ -73,6 +83,7 @@ function Home() {
                 isLoaded: !isItemLoaded(index),
                 style,
                 photo,
+                index,
               });
             }}
           </List>
