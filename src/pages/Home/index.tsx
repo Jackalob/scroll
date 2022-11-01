@@ -1,8 +1,8 @@
 import { VariableSizeList as List } from 'react-window';
 import InfiniteLoader from 'react-window-infinite-loader';
 
+import type { Photo } from '../../types';
 import { usePhotos } from '../../api/photo';
-import { Photo } from '../../types';
 import Box from '../../components/Box';
 import { IconSpinner } from '../../assets/icons';
 import STYLE from './style.module.scss';
@@ -13,36 +13,6 @@ type ListItemProps = {
   photo: Photo;
   index: number;
 };
-
-function generateListItem({ isLoaded, style, photo, index }: ListItemProps) {
-  if (index === 0) {
-    return <h1 className={STYLE.title}>Infinite Scroll</h1>;
-  }
-  if (isLoaded) {
-    return (
-      <div style={style}>
-        <Box>
-          <IconSpinner className={STYLE.spinner} />
-        </Box>
-      </div>
-    );
-  }
-  return (
-    <div style={style}>
-      <div className={STYLE.wrapper}>
-        <Box>
-          <img
-            className={STYLE.img}
-            src={photo.download_url}
-            alt=""
-            loading="lazy"
-          />
-          <span className={STYLE.author}>Author: {photo.author}</span>
-        </Box>
-      </div>
-    </div>
-  );
-}
 
 function Home() {
   const { data, hasNextPage, isFetchingNextPage, fetchNextPage } = usePhotos();
@@ -79,16 +49,48 @@ function Home() {
           >
             {({ index, style }) => {
               const photo = photos[index];
-              return generateListItem({
-                isLoaded: !isItemLoaded(index),
-                style,
-                photo,
-                index,
-              });
+              return (
+                <ListItem
+                  isLoaded={!isItemLoaded(index)}
+                  style={style}
+                  photo={photo}
+                  index={index}
+                />
+              );
             }}
           </List>
         )}
       </InfiniteLoader>
+    </div>
+  );
+}
+
+function ListItem({ isLoaded, style, photo, index }: ListItemProps) {
+  if (index === 0) {
+    return <h1 className={STYLE.title}>Infinite Scroll</h1>;
+  }
+  if (isLoaded) {
+    return (
+      <div style={style}>
+        <Box>
+          <IconSpinner className={STYLE.spinner} />
+        </Box>
+      </div>
+    );
+  }
+  return (
+    <div style={style}>
+      <div className={STYLE.wrapper}>
+        <Box>
+          <img
+            className={STYLE.img}
+            src={photo.download_url}
+            alt=""
+            loading="lazy"
+          />
+          <span className={STYLE.author}>Author: {photo.author}</span>
+        </Box>
+      </div>
     </div>
   );
 }
