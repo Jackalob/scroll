@@ -16,6 +16,21 @@
     "jsx-a11y/label-has-associated-control": 0,
     "react/jsx-props-no-spreading": 0,
     "react/prop-types": 0,
-    "import/prefer-default-export": 0
-  }
+    "import/prefer-default-export": 0,
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": ["**/*.stories.*", "**/.storybook/**/*.*"],
+        "peerDependencies": true
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["**/*.stories.*"],
+      "rules": {
+        "import/no-anonymous-default-export": "off"
+      }
+    }
+  ]
 }
