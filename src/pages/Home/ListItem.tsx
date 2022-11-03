@@ -18,7 +18,9 @@ function ListItem({ isLoaded, photo, index }: ListItemProps) {
   if (isLoaded) {
     return (
       <Box>
-        <IconSpinner className={STYLE.spinner} />
+        <span className="cy-loading">
+          <IconSpinner className={STYLE.spinner} />
+        </span>
       </Box>
     );
   }

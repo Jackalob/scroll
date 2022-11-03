@@ -31,7 +31,7 @@ function Home() {
       >
         {({ onItemsRendered, ref }) => (
           <List
-            className={STYLE.list}
+            className={`${STYLE.list} cy-scroll-loader`}
             ref={ref}
             itemCount={itemCount}
             estimatedItemSize={window.innerHeight * 0.8}
@@ -42,7 +42,7 @@ function Home() {
           >
             {({ index, style }) => {
               const photo = photos[index];
-              // style is different in every render that makes memo to be not fuctioning
+              // style is different in every render that makes memo to be ineffective
               // put style out of ListItem
               return (
                 <div style={style}>
