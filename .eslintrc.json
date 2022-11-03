@@ -20,7 +20,12 @@
     "import/no-extraneous-dependencies": [
       "error",
       {
-        "devDependencies": ["**/*.stories.*", "**/.storybook/**/*.*"],
+        "devDependencies": [
+          "**/*.stories.*",
+          "**/.storybook/**/*.*",
+          "./cypress/**/*.ts",
+          "cypress.config.ts"
+        ],
         "peerDependencies": true
       }
     ]
