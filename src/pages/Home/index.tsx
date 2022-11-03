@@ -45,7 +45,7 @@ function Home() {
               // style is different in every render that makes memo to be ineffective
               // put style out of ListItem
               return (
-                <div style={style}>
+                <div style={style} className="cy-scroll-item">
                   <ListItem
                     isLoaded={!isItemLoaded(index)}
                     photo={photo}
