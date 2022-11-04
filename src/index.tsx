@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 import 'normalize.css';
 
 import './index.css';
+import 'react-loading-skeleton/dist/skeleton.css';
+
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
