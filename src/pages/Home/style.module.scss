@@ -20,13 +20,17 @@
   overflow: auto;
 }
 
-.img {
+.img-wrapper {
   width: 50%;
-  max-width: 600px;
-  max-height: 400px;
   margin: 0 auto;
   object-fit: cover;
-  background-color: #eee;
+  max-width: 600px;
+  max-height: 400px;
+}
+
+.img {
+  width: 100%;
+  height: 100%;
 }
 
 .author {
