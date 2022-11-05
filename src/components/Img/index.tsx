@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, memo } from 'react';
 import Skeleton from 'react-loading-skeleton';
 
 import STYLE from './style.module.scss';
@@ -30,4 +30,4 @@ function Img({
   );
 }
 
-export default Img;
+export default memo(Img);
